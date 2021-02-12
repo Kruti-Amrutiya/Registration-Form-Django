@@ -1,0 +1,46 @@
+{% extends "student_register/base.html" %}
+
+{% block content %}
+<table class="table table-bordered table-hover table-striped table-responsive table-dark">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td>Date Of Birth</td>
+            <td>Roll Number</td>
+            <td>Gender</td>
+            <td>Email</td>
+            <td>Mobile</td>
+            <td>Subject</td>
+            <td>
+                <a href="{% url 'student_insert' %}" class="btn btn-outline-success btn-sm">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in student_list %}
+            <tr>
+                <td>{{student.fullname}}</td>
+                <td>{{student.dob}}</td>
+                <td>{{student.roll_num}}</td>
+                <td>{{student.gender}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.mobile}}</td>
+                <td>{{student.subject}}</td>
+                <td>
+                    <a href="{% url 'student_update' student.id %}" class="btn text-warning px-0 col-sm-12">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'student_delete' student.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn col-sm-12">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
